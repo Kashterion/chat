@@ -22,10 +22,6 @@ var io = require('socket.io')(server);
 
 console.log(process.env.OPENSHIFT_NODEJS_IP, process.env.OPENSHIFT_NODEJS_PORT);
 
-server.listen(server_port, server_ip_address, function () {
-  console.log( "Listening on " + server_ip_address + ", port " + server_port )
-});
-
 // Routing
 app.use(express.static(__dirname + '/public'));
 
