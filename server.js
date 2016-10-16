@@ -1,20 +1,19 @@
 // Setup basic express server
 var express = require('express');
 var app = express();
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-
-console.log(process.env.OPENSHIFT_NODEJS_IP, process.env.OPENSHIFT_NODEJS_PORT);
 
 server.listen(server_port, server_ip_address, function () {
   console.log( "Listening on " + server_ip_address + ", port " + server_port )
 });
 
 // Routing
-app.use(express.static(__dirname + '/public'));
+app.use('/', express.static(__dirname + '/public'));
+//app.use('/chat', express.static(__dirname + '/public'));
 
 // Chatroom
 
@@ -22,7 +21,7 @@ var numUsers = 0;
 
 io.on('connection', function (socket) {
   var addedUser = false;
-
+  console.log('client connected', socket.id);
   // when the client emits 'new message', this listens and executes
   socket.on('new message', function (data) {
     // we tell the client to execute 'new message'
@@ -66,6 +65,7 @@ io.on('connection', function (socket) {
 
   // when the user disconnects.. perform this
   socket.on('disconnect', function () {
+    console.log('client disconnected:', socket.id);
     if (addedUser) {
       --numUsers;
 
