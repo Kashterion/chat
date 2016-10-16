@@ -23,7 +23,7 @@ $(function() {
   var lastTypingTime;
   var $currentInput = $usernameInput.focus();
 
-  var socket = io();
+  var socket = io('http://130.211.151.172/');
 
   function addParticipantsMessage (data) {
     var message = '';
@@ -64,7 +64,7 @@ $(function() {
         message: message
       });
       // tell server to execute 'new message' and send along one parameter
-      socket.emit('new message', message);
+      socket.emit('new message', { message: message, color: getUsernameColor(username) } );
     }
   }
 
