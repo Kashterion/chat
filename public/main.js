@@ -24,6 +24,7 @@ $(function() {
   var $currentInput = $usernameInput.focus();
 
   var socket = io('http://130.211.151.172/');
+  //var socket = io('http://127.0.0.1:3000/');
 
   function addParticipantsMessage (data) {
     var message = '';
@@ -59,10 +60,10 @@ $(function() {
     // if there is a non-empty message and a socket connection
     if (message && connected) {
       $inputMessage.val('');
-      addChatMessage({
-        username: username,
-        message: message
-      });
+      // addChatMessage({
+      //   username: username,
+      //   message: message
+      // });
       // tell server to execute 'new message' and send along one parameter
       socket.emit('new message', { message: message, color: getUsernameColor(username) } );
     }
