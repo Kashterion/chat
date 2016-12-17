@@ -1,7 +1,7 @@
 // Setup basic express server
 var express = require('express');
 var app = express();
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3567;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 var server = require('http').createServer(app);
